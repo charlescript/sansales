@@ -58,3 +58,15 @@ class Products extends model {
 } // Fim classe Products
 
 
+/*"getList": Este método retorna uma lista de produtos.
+ Ele usa uma consulta SQL para obter os dados dos produtos, incluindo o nome
+  da marca e o nome da categoria. Ele também usa o método "getImagesByProductId" 
+  para obter uma lista de imagens para cada produto. O método aceita dois 
+  parâmetros opcionais: "offset" (ponto de partida para paginação) e 
+  "limit" (quantidade de itens que aparecerão na tela).
+
+"getTotal": Este método retorna o número total de itens na tabela "tb_products".
+
+
+"getImagesByProductId": Este método retorna uma lista de imagens para um
+ determinado produto, identificado pelo ID do produto.
