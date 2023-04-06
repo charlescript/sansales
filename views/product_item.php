@@ -35,14 +35,14 @@
     </a>
 </div>
 
+<!--  
+Ele começa com uma div (uma caixa de conteúdo) com a classe "product_item". Dentro dessa div, há um link para o produto que está sendo exibido.
 
-<!-- gera um bloco de HTML para exibir um produto na página da web. 
-Ele faz uso de várias variáveis ​​PHP para renderizar as informações do produto. 
-O bloco de HTML exibe a imagem principal do produto, seu nome, marca e preço. 
-Ele também tem uma seção de tags que pode mostrar um rótulo indicando se o
- produto está em promoção, se é um best-seller ou se é um produto novo. 
- As tags são condicionais, então apenas aquelas que são relevantes para o produto
-  específico serão exibidas. Há também um código PHP que verifica se existe um 
-  preço anterior em promoção e exibe esse preço antes do preço atual, caso haja. 
-  O código HTML inclui um link para a página do produto, que é configurado pela 
-  variável $href. -->
+Em seguida, há outra div com a classe "product_tags" que exibe uma ou mais tags de produtos, dependendo de suas características. Por exemplo, se o produto está em promoção, uma tag "SALE" será exibida em vermelho. Se for um produto muito vendido, uma tag "BESTSELLER" será exibida em verde. Se for um produto novo, uma tag "NEW" será exibida em azul.
+
+Depois, há outra div com a classe "product_image" que exibe uma imagem do produto, se houver alguma. Se houver mais de uma imagem, apenas a primeira será exibida.
+
+A próxima div mostra o nome do produto e outra div mostra a marca. Em seguida, há uma div que exibe o preço do produto, primeiro o preço antigo (se houver) e depois o preço atual. Se houver um preço antigo, ele será exibido como "De R$ x.xx", caso contrário, apenas o preço atual será exibido como "Por R$ x.xx".
+
+Por fim, há uma div com estilo "clear:both" que garante que a div da lista de produtos não sobreponha o conteúdo que vem depois.
+ -->
