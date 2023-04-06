@@ -2,14 +2,14 @@
 
 class Products extends model {
 
-    public function getList() {
+    public function getList($offset = 0, $limit = 3) {  // $offset pnto de partida para paginação / $limit = 10 -> Quantidade de items que aparecerão na tela
         $array = array();
 
         // A query abaixo faz consulta para buscar nome da marca e nome da categoria 
         $sql = "SELECT *,
         ( select tb_brands.nm_brand from tb_brands where tb_brands.id_brand = tb_products.id_brand ) as brand_name,
         ( select tb_categories.nm_categories from tb_categories where tb_categories.id_categories = tb_products.id_category) as category_name 
-        FROM tb_products";
+        FROM tb_products LIMIT $offset, $limit";
         $sql = $this->db->query($sql); 
 
         if ($sql->rowCount() > 0) {
@@ -26,6 +26,15 @@ class Products extends model {
         }
 
         return $array;
+    }
+
+
+    public function getToTal(){  // Função para pegar o total de items usado em homeController.php
+        $sql = "SELECT COUNT(*) AS c FROM tb_products";
+        $sql = $this->db->query($sql);
+        $sql = $sql->fetch();
+
+        return $sql['c'];
     }
 
 

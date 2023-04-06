@@ -84,7 +84,7 @@ header {
 	width:15%;
 	height:44px;
 	float:left;
-	background-color:#59b210;
+	background-color:#e47911;
 	background-image:url('../images/search.png');
 	background-size:auto 50%;
 	background-repeat:no-repeat;
@@ -124,7 +124,7 @@ header {
 	color:#FFF;
 	font-weight: bold;
 	font-size:12px;
-	background-color:#59b210;
+	background-color:#e47911;
 	border-radius:10px;
 }
 
@@ -150,7 +150,7 @@ header {
 	border-right: 1px solid #e0e0e0;
 }
 .categoryarea .dropdown {
-	background-color:#59b210;
+	background-color:#e47911;
 	border-radius:5px;
 }
 .categoryarea .dropdown .dropdown-toggle {
@@ -165,7 +165,7 @@ header {
 }
 .categoryarea .nav>li.dropdown>a:focus,
 .categoryarea .nav>li.dropdown>a:hover {
-	background-color:#59b210;
+	background-color:#e47911;
 	border-radius:5px;
 }
 
@@ -242,7 +242,7 @@ footer {
 	border-radius:0 5px 5px 0;
 	margin-left: -5px;
 	color:#FFF;
-	background-color:#59b210;
+	background-color:#e47911;
 }
 .subarea input[type=submit]:hover {
 	background-color:#60c011;
@@ -295,11 +295,12 @@ footer h3 {
 
 
 .product_item {
-	padding: 12px;
+	padding: 10px;
+	border: 1px solid #FFF;
 }
 
 .product_item:hover {
-	background-color: #EEE;
+	border: 1px solid #e47911;
 	border-radius: 12px;
 }
 
@@ -325,17 +326,17 @@ footer h3 {
 }
 
 .product_tag_red{
-	background-color: #FF0000;
+	background-color: #F8484a;
 	font-weight: bold;
 }
 
 .product_tag_green{
-	background-color: #00FF00;
+	background-color: #59b210;
 	font-weight: bold;
 }
 
 .product_tag_blue{
-	background-color: #0000FF;
+	background-color: #407ac5;
 	font-weight: bold;
 }
 
@@ -349,7 +350,7 @@ footer h3 {
 }
 .product_price_from {
 	float: left;
-	color: #CCC;
+	color: #757575;
 	font-size: 12px;
 	margin-top: 15px;
 }
@@ -360,8 +361,30 @@ footer h3 {
 	margin-top: 15px;
 }
 
+.paginationItem{
+	width: 40px;
+	height: 40px;
+	border: 1px solid #DDD;
+	font-size: 13px;
+	text-align: center;
+	line-height: 40px;
+	display: inline-block;
+}
 
+.paginationItem:hover,
+.pag_active {
+	border: 1px solid #e47911;
+}
 
+.paginationItem a {
+	display: block;  
+	color: #000;
+	text-decoration: none;
+}
+
+.paginationArea{
+	margin-top: 50px;
+}
 
 
 
