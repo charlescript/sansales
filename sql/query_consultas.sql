@@ -16,7 +16,7 @@ insert into tb_products (id_category, id_brand, nm_product, ds_product, qt_stock
 values (1,2,"Monitor 18 polegadas","Alto fluxo de pixels com 120 Hertz",10, 399, 999, 0, 0, 0, 0, 0);
 
 						
-insert into tb_products (id_category, id_brand, nm_product, ds_product, qt_stock, vl_price, vl_price_from, qt_rating, ic_featured, ic_sale, ic_bestseller, ic_new_product, ds_options) 
+insert into tb_products (id_category, id_brand, nm_product, ds_product, qt_stock, vl_price, vl_price_from, qt_rating, ic_featured, ic_sale, ic_bestseller, ic_new_product, id_options) 
 values (6,1,'Monitor 21 polegadas','Alguma descrição do produto.',10,499,599,0,0,1,1,0,NULL),
 	   (6,2,'Monitor 18 polegadas','Alguma outra descrição',10,399,999,0,0,0,1,0,NULL),
 	   (6,2,'Monitor 19 polegadas','Alguma outra descrição',10,599,699,0,0,0,0,1,NULL),
@@ -86,4 +86,20 @@ SELECT *,
         
 
 update tb_products set ic_new_product = '1' where id_product = 6;
-        
+
+
+select * from tb_categories order by cd_sub_categories DESC;
+insert into tb_categories (nm_categories) values ("Som");
+insert into tb_categories (cd_sub_categories, nm_categories) values (7,"Headphones");
+insert into tb_categories (cd_sub_categories, nm_categories) values (7,"Microfones");
+insert into tb_categories (cd_sub_categories, nm_categories) values (8,"Com fio");
+insert into tb_categories (cd_sub_categories, nm_categories) values (8,"Sem fio");
+
+SELECT * FROM tb_categories WHERE cd_sub_categories = 8;
+insert into tb_products (id_category, id_brand, nm_product, ds_product, qt_stock, vl_price, vl_price_from, qt_rating, ic_featured, ic_sale, ic_bestseller, ic_new_product, id_options) 
+values (11,1,'Fones sem fio','Dolby Balance.',10,499,799,0,0,1,1,0,NULL);
+
+select * from tb_products;
+select * from tb_products_images;
+insert into tb_products_images (id_product, ds_url)values(9,'8.jpg');
+update tb_products_images set ds_url = '9.jpg' where id_image = 9;

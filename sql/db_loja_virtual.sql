@@ -47,7 +47,8 @@ create table tb_products(  /* Tabela Produtos*/
     id_options varchar(200)                   /*OPTIONS  Vai linkar com a tabela TB_OPTIONS ao ID_OPTION  -> Aqui colocaremos os opcionais do produto separado por virgula*/
 );
 
-/* (ds_options varchar(200))  para ( id_options int(11) )  -> Originamente coloquei como varchar mas alterarei para int visando linkar esse atributo*/
+/* Na tablea tb_products (ds_options varchar(200))  para ( id_options int(11) )  -> 
+Originamente coloquei como varchar mas alterarei para int visando linkar esse atributo com a tabela tb_options*/
 /*ALTER TABLE tb_products RENAME COLUMN ds_options TO id_options;
 ALTER TABLE tb_products MODIFY id_options int(11);
 desc tb_products; */
