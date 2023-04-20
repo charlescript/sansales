@@ -26,7 +26,52 @@ class Categories extends model {
         // print_r($array);
         // exit;
         return $array;
-    }
+    } // Fim getList
+
+
+    public function getCategoryTree($id) {
+        $array = array();
+
+        $haveChild = true;
+
+        while($haveChild) {
+
+            $sql = "SELECT * FROM tb_categories WHERE id_categories = :id";
+            $sql = $this->db->prepare($sql);
+            $sql->bindValue(":id", $id);
+            $sql->execute();
+
+            if($sql->rowCount() > 0) {
+                $sql = $sql->fetch();
+                $array[] = $sql;
+
+                if(!empty($sql['cd_sub_categories'])){  // Pega a sub categoria do produto
+                    $id = $sql['cd_sub_categories'];
+                } else {
+                    $haveChild = false;
+                }
+            }
+        }
+
+        $array = array_reverse($array);
+        
+        return $array;
+    } // Fim getCategoryTree
+
+
+    public function getCategoryName($id){
+        $sql = "SELECT nm_categories FROM tb_categories WHERE id_categories = :id";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(":id",$id);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            $sql = $sql->fetch();
+            return $sql['nm_categories'];
+        }
+
+    } // Fim getCategoryName
+
 
     /* organizeCategory() é chamada várias vezes até que todas as 
     categorias estejam organizadas em uma árvore. */ 

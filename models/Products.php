@@ -2,15 +2,32 @@
 
 class Products extends model {
 
-    public function getList($offset = 0, $limit = 3) {  // $offset pnto de partida para paginação / $limit = 10 -> Quantidade de items que aparecerão na tela
+    public function getList($offset = 0, $limit = 3, $filters = array()) {  // $offset pnto de partida para paginação / $limit = 10 -> Quantidade de items que aparecerão na tela
         $array = array();
+
+        $where = array(
+            '1=1'
+        );
+
+        if(!empty($filters['category'])){  //criando o statement
+            $where[] = "id_category = :id_category";
+        }
 
         // A query abaixo faz consulta para buscar nome da marca e nome da categoria 
         $sql = "SELECT *,
-        ( select tb_brands.nm_brand from tb_brands where tb_brands.id_brand = tb_products.id_brand ) as brand_name,
-        ( select tb_categories.nm_categories from tb_categories where tb_categories.id_categories = tb_products.id_category) as category_name 
-        FROM tb_products LIMIT $offset, $limit";
-        $sql = $this->db->query($sql); 
+            ( select tb_brands.nm_brand from tb_brands where tb_brands.id_brand = tb_products.id_brand ) as brand_name,
+            ( select tb_categories.nm_categories from tb_categories where tb_categories.id_categories = tb_products.id_category) as category_name 
+        FROM 
+        tb_products 
+        WHERE ".implode(' AND ', $where)."
+        LIMIT $offset, $limit";
+        $sql = $this->db->prepare($sql); 
+
+        if(!empty($filters['category'])){ // Preenchendo statement
+            $sql->bindValue(":id_category", $filters['category']);
+        }
+
+        $sql->execute();
 
         if ($sql->rowCount() > 0) {
 
@@ -29,9 +46,26 @@ class Products extends model {
     }
 
 
-    public function getToTal(){  // Função para pegar o total de items usado em homeController.php
-        $sql = "SELECT COUNT(*) AS c FROM tb_products";
-        $sql = $this->db->query($sql);
+    public function getToTal($filters = array()){  // Função para pegar o total de items usado em homeController.php
+        $where = array(
+            '1=1'
+        );
+
+        if(!empty($filters['category'])){  //criando o statement
+            $where[] = "id_category = :id_category";
+        }
+
+        $sql = "SELECT 
+            COUNT(*) AS c 
+            FROM tb_products
+            WHERE ".implode(' AND ', $where);
+        $sql = $this->db->prepare($sql);
+
+        if(!empty($filters['category'])){ // Preenchendo statement
+            $sql->bindValue(":id_category", $filters['category']);
+        }
+
+        $sql->execute();
         $sql = $sql->fetch();
 
         return $sql['c'];
@@ -58,7 +92,7 @@ class Products extends model {
 } // Fim classe Products
 
 
-/*"getList": Este método retorna uma lista de produtos.
+/* "getList": Este método retorna uma lista de produtos.
  Ele usa uma consulta SQL para obter os dados dos produtos, incluindo o nome
   da marca e o nome da categoria. Ele também usa o método "getImagesByProductId" 
   para obter uma lista de imagens para cada produto. O método aceita dois 
@@ -69,4 +103,4 @@ class Products extends model {
 
 
 "getImagesByProductId": Este método retorna uma lista de imagens para um
- determinado produto, identificado pelo ID do produto.
+ determinado produto, identificado pelo ID do produto. */
