@@ -400,7 +400,7 @@ footer h3 {
 }
 
 .filtertitle {
-	color: #e47911;
+	color: rgb(0, 134, 255);
 	font-size: 17px;
 	font-weight: bold;
 	padding-bottom: 5px;
@@ -408,6 +408,26 @@ footer h3 {
 	border-bottom: 1px solid #EEE;
 }
 
+.filteritem {
+	height: 20px;
+	font-size: 12px;
+}
 
+.filteritem label{
+	font-weight: normal;
+}
 
+.filterbox .filteritem{
+	margin: 5px;
+	flex-direction: row;
+}
 
+.filterbox .filteritem img{
+	margin-top: -7px;
+}
+
+#qt_brand{
+	margin-left: -20%;
+	margin-top: 5px;
+	float: right;
+}

@@ -2,6 +2,19 @@
 
 class Products extends model {
 
+    public function getListOfBrands() {
+        $array = array();
+
+        $sql = "SELECT id_brand, COUNT(id_brand) as c FROM tb_products GROUP BY id_brand";
+        $sql = $this->db->query($sql);
+
+        if($sql->rowCount() > 0){
+            $array = $sql->fetchAll();
+        }
+
+        return $array;
+    }
+
     public function getList($offset = 0, $limit = 3, $filters = array()) {  // $offset pnto de partida para paginação / $limit = 10 -> Quantidade de items que aparecerão na tela
         $array = array();
 

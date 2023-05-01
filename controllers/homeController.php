@@ -12,6 +12,7 @@ class homeController extends controller {
 
         $products = new Products(); // Instânciei o objeto $products de models/products.php
         $categories = new Categories(); // Instância da classe Categories
+        $f = new Filters(); // Instanciando na variave f, a calsse Filters de models/Filters.php
 
         $currentPage = 1;
         $offset = 0;
@@ -30,7 +31,7 @@ class homeController extends controller {
 
         $dados['categories'] = $categories->getList();
 
-        $dados['maxslider'] = 1200;
+        $dados['filters'] = $f->getFilters();
 
         $this->loadTemplate('home', $dados);
     }
