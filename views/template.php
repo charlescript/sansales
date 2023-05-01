@@ -8,6 +8,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/bootstrap.min.css" type="text/css" />
+	<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/jquery-ui.min.css" type="text/css" />
+	<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/jquery-ui.structure.css" type="text/css" />
+	<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/jquery-ui.theme.css" type="text/css" />
 	<link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css" type="text/css" />
 </head>
 
@@ -94,7 +97,7 @@
 					</li>
 					<?php if (isset($viewData['category_filter'])) : ?>
 						<?php foreach ($viewData['category_filter'] as $cf) : ?>
-						<li><a href="<?php echo BASE_URL;?>categories/enter/<?php echo $cf['id_categories'];?>"><?php echo $cf['nm_categories'];?></a></li>
+							<li><a href="<?php echo BASE_URL; ?>categories/enter/<?php echo $cf['id_categories']; ?>"><?php echo $cf['nm_categories']; ?></a></li>
 						<?php endforeach; ?>
 					<?php endif; ?>
 				</ul>
@@ -108,6 +111,42 @@
 					<aside>
 						<h1><?php $this->lang->get('FILTER'); ?></h1>
 						<div class="filterarea">
+
+							<div class="filterbox">
+								<div class="filtertitle"><?php $this->lang->get('BRANDS'); ?></div>
+								<div class="filtercontent">
+									...
+								</div>
+							</div>
+
+							<div class="filterbox">
+								<div class="filtertitle"><?php $this->lang->get('PRICE'); ?></div>
+								<div class="filtercontent">
+									<input type="text" id="amount" readonly style="border:0; color:#59b210; font-weight:bold;">
+									<div id="slider-range"></div>
+								</div>
+							</div>
+
+							<div class="filterbox">
+								<div class="filtertitle"><?php $this->lang->get('RATING'); ?></div>
+								<div class="filtercontent">
+									...
+								</div>
+							</div>
+
+							<div class="filterbox">
+								<div class="filtertitle"><?php $this->lang->get('SALE'); ?></div>
+								<div class="filtercontent">
+									...
+								</div>
+							</div>
+
+							<div class="filterbox">
+								<div class="filtertitle"><?php $this->lang->get('OPTIONS'); ?></div>
+								<div class="filtercontent">
+									...
+								</div>
+							</div>
 
 						</div>
 
@@ -230,8 +269,10 @@
 	</footer>
 	<script type="text/javascript">
 		var BASE_URL = '<?php echo BASE_URL; ?>';
+		var maxslider = <?php echo $viewData['maxslider']; ?>;
 	</script>
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/jquery.min.js"></script>
+	<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/script.js"></script>
 </body>
