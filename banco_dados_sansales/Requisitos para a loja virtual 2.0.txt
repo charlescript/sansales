@@ -1,0 +1,19 @@
+Requisitos para a loja virtual 2.0
+
+- Sistema de busca 
+- Sistema multi-linguagem (i18n)
+- Área para usuário acompanhar pedidos
+- Carrinho de compras
+- Categorização dos produtos
+- Caracteristicas especificas dos produtos
+- Filtro lateral dos produtos
+- Widgets de produtos	(Áreas especificas dos produtos)
+- Staring de produtos (Estrelas nos produtos)
+- Integração ao Mailchimp
+- Página estática como o footer
+
+-Integração a meios de pagamentos
+ - Pagamento
+ - Paypal
+ - Boleto direto
+ - Mercado Pago

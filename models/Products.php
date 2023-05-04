@@ -1,6 +1,79 @@
 <?php
 class Products extends model {
 
+    public function getAvailableOptions($filters = array()) {
+        $groups = array();
+        $ids = array();
+
+        $where = $this->buildWhere($filters);
+        
+        $sql = "SELECT 
+        id_product, id_options
+        FROM tb_products
+        WHERE ".implode(' AND ', $where);
+        $sql = $this->db->prepare($sql);
+
+        $this->bindWhere($filters, $sql);
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            foreach($sql->fetchAll() as $product) {  // Varre cada produto
+                $ops = explode(",", $product['id_options']); // Pego o id_options com separação das virgulas
+                $ids[] = $product['id_product']; // Pega o id do produto e inputa no array ids[]
+                foreach($ops as $op) {  // Varre as opções lidas do produto lido nesse giro de loop
+                    if(!in_array($op, $groups)) { // Se não tiver adiciona 
+                        $groups[] = $op;  // Criei array groups com todas as options
+                    }
+                } // Fim foreach $ops
+            } // Fim foreach ferchAll
+        } // Fim if de rowCount()
+        
+        //return $groups;   // Retorna para Filters.php o array com as opções
+
+        // Baseado nos $groups e $ids a função getAvailableValuesFromOptions vai procurar as opções disponíveis
+        $options = $this->getAvailableValuesFromOptions($groups, $ids);
+
+        return $options;
+
+    } // Fim do método getAvailableOptions
+
+
+    public function getAvailableValuesFromOptions($groups, $ids){
+        $array = array();
+        $options = new Options();
+        foreach($groups as $op) {
+            $array[$op] = array(
+                'name' => $options->getName($op),
+                'options' => array()
+            );
+        }
+        
+        $sql = "SELECT
+        ds_value, 
+        id_option,
+        COUNT(id_option) as c
+        FROM tb_products_options
+        WHERE 
+        id_option IN ('".implode(" ',' ", $groups)."') AND
+        id_product IN ('".implode(" ',' ", $ids)."')
+        GROUP BY ds_value ORDER BY id_option";
+
+        $sql = $this->db->query($sql);
+        if($sql->rowCount() > 0) {
+            foreach($sql->fetchAll() as $ops) {
+
+                $array[$ops['id_option']]['options'][] = 
+                    array(
+                        'id'=>$ops['id_option'],
+                        'value'=>$ops['ds_value'],
+                        'count'=>$ops['c']
+                    );
+            }
+        }
+
+        return $array;
+    } // Fim método getAvailableValuesFromOptions
+
     public function getSaleCount($filters = array()) {
         $where = $this->buildWhere($filters);
 

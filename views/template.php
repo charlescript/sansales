@@ -117,8 +117,8 @@
 								<div class="filtercontent">
 									<?php foreach ($viewData['filters']['brands'] as $bitem) : ?>
 										<div class="filteritem">
-											<input type="checkbox" name="filter[brand][]" value="<?php echo $bitem['id_brand'];?>" id="filter_brand<?php echo $bitem['id_brand'];?>" />
-											<label for="filter_brand<?php echo $bitem['id_brand']; ?>"> <?php echo $bitem['nm_brand']; ?> </label> <span id="qt_brand">(<?php echo $bitem['count'];?> items)</span>
+											<input type="checkbox" name="filter[brand][]" value="<?php echo $bitem['id_brand']; ?>" id="filter_brand<?php echo $bitem['id_brand']; ?>" />
+											<label for="filter_brand<?php echo $bitem['id_brand']; ?>"> <?php echo $bitem['nm_brand']; ?> </label> <span id="qt_brand">(<?php echo $bitem['count']; ?> items)</span>
 										</div>
 									<?php endforeach; ?>
 								</div>
@@ -135,13 +135,13 @@
 							<div class="filterbox">
 								<div class="filtertitle"><?php $this->lang->get('RATING'); ?></div>
 								<div class="filtercontent">
-										
+
 									<div class="filteritem">
 										<input type="checkbox" name="filter[star][]" value="0" id="filter_star0" />
 										<label for="filter_star0">
 											(<?php $this->lang->get('NO_STAR'); ?>)
 										</label>
-										<span style="float:right">(<?php echo $viewData['filters']['stars']['0'];?> items)</span>
+										<span style="float:right">(<?php echo $viewData['filters']['stars']['0']; ?> items)</span>
 									</div>
 
 									<div class="filteritem">
@@ -149,7 +149,7 @@
 										<label for="filter_star1">
 											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 										</label>
-										<span style="float:right">(<?php echo $viewData['filters']['stars']['1'];?> items)</span>
+										<span style="float:right">(<?php echo $viewData['filters']['stars']['1']; ?> items)</span>
 									</div>
 
 									<div class="filteritem">
@@ -158,7 +158,7 @@
 											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 										</label>
-										<span style="float:right">(<?php echo $viewData['filters']['stars']['2'];?> items)</span>
+										<span style="float:right">(<?php echo $viewData['filters']['stars']['2']; ?> items)</span>
 									</div>
 
 									<div class="filteritem">
@@ -168,7 +168,7 @@
 											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 										</label>
-										<span style="float:right">(<?php echo $viewData['filters']['stars']['3'];?> items)</span>
+										<span style="float:right">(<?php echo $viewData['filters']['stars']['3']; ?> items)</span>
 									</div>
 
 									<div class="filteritem">
@@ -179,7 +179,7 @@
 											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 										</label>
-										<span style="float:right">(<?php echo $viewData['filters']['stars']['4'];?> items)</span>
+										<span style="float:right">(<?php echo $viewData['filters']['stars']['4']; ?> items)</span>
 									</div>
 
 									<div class="filteritem">
@@ -191,7 +191,7 @@
 											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 											<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 										</label>
-										<span style="float:right">(<?php echo $viewData['filters']['stars']['5'];?> items)</span>
+										<span style="float:right">(<?php echo $viewData['filters']['stars']['5']; ?> items)</span>
 									</div>
 								</div>
 							</div>
@@ -200,9 +200,9 @@
 								<div class="filtertitle"><?php $this->lang->get('SALE'); ?></div>
 								<div class="filtercontent">
 									<div class="filteritem">
-										<input type="checkbox" name="filter[sale]" id="filter_sale" /> 
+										<input type="checkbox" name="filter[sale]" id="filter_sale" />
 										<label for="filter_sale">Em promoção </label>
-										<span style="float:right">(<?php echo $viewData['filters']['sale'];?> items)</span>
+										<span style="float:right; padding-top:7px;">(<?php echo $viewData['filters']['sale']; ?> items)</span>
 									</div>
 								</div>
 							</div>
@@ -210,7 +210,20 @@
 							<div class="filterbox">
 								<div class="filtertitle"><?php $this->lang->get('OPTIONS'); ?></div>
 								<div class="filtercontent">
-									...
+									<?php foreach ($viewData['filters']['options'] as $option) : ?>
+										<strong> <?php echo $option['name']; ?> </strong><br />
+										<?php foreach ($option['options'] as $op) : ?>
+											<div class="filteritem">
+												<input type="checkbox" name="filter[options][]" value="<?php echo $op['id']; ?>" id="filter_options<?php echo $op['id']; ?>" />
+												<label for="filter_options<?php echo $op['id']; ?>"> <?php echo $op['value']; ?> </label> <span style="float:right">(<?php echo $op['count']; ?> items)</span>
+											</div>
+										<?php endforeach; ?>
+										<br />
+									<?php endforeach; ?>
+									<!-- <pre>
+										Apresenta o array no formato arvore
+										<!-- <?php print_r($viewData['filters']['options']); ?> -->
+									<!-- </pre> -->
 								</div>
 							</div>
 
