@@ -14,6 +14,8 @@ class homeController extends controller {
         $categories = new Categories(); // Instância da classe Categories
         $f = new Filters(); // Instanciando na variave f, a calsse Filters de models/Filters.php
 
+        $filters = array();
+
         $currentPage = 1;
         $offset = 0;
         $limit = 3;
@@ -31,7 +33,7 @@ class homeController extends controller {
 
         $dados['categories'] = $categories->getList();
 
-        $dados['filters'] = $f->getFilters();
+        $dados['filters'] = $f->getFilters($filters);
 
         $this->loadTemplate('home', $dados);
     }

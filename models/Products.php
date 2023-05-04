@@ -1,30 +1,107 @@
 <?php
-
 class Products extends model {
 
-    public function getListOfBrands() {
+    public function getSaleCount($filters = array()) {
+        $where = $this->buildWhere($filters);
+
+        $where[] = 'ic_sale = "1"';
+
+        $sql = "SELECT
+        COUNT(*) as c
+        FROM tb_products 
+        WHERE ".implode(' AND ', $where);
+        $sql = $this->db->prepare($sql);
+
+        $this->bindWhere($filters, $sql);
+
+        $sql->execute();
+
+        if($sql->rowCount() > 0) {
+            $sql = $sql->fetch();
+
+            return $sql['c'];
+        } else {
+            return '0';
+        }
+    }
+
+    public function getMaxPrice($filters = array()) {
+        $where = $this->buildWhere($filters);
+
+        $sql = "SELECT
+        vl_price
+        FROM tb_products 
+        WHERE ".implode(' AND ', $where)."
+        ORDER BY vl_price DESC
+        LIMIT 1";
+        $sql = $this->db->prepare($sql);
+
+        $this->bindWhere($filters, $sql);
+
+        $sql->execute();
+
+        if($sql->rowCount() > 0) {
+            $sql = $sql->fetch();
+
+            return $sql['vl_price'];
+        } else {
+            return '0';
+        }
+    }
+
+    public function getListOfStars($filters = array()) {
         $array = array();
 
-        $sql = "SELECT id_brand, COUNT(id_brand) as c FROM tb_products GROUP BY id_brand";
-        $sql = $this->db->query($sql);
+        $where = $this->buildWhere($filters);
+
+        $sql = "SELECT
+        qt_rating, 
+        COUNT(id_product) as c 
+        FROM tb_products 
+        WHERE ".implode(' AND ', $where)."
+        GROUP BY qt_rating";
+        $sql = $this->db->prepare($sql);
+
+        $this->bindWhere($filters, $sql);
+
+        $sql->execute();
 
         if($sql->rowCount() > 0){
             $array = $sql->fetchAll();
         }
 
         return $array;
-    }
+    } // Fim método getListOfStars
+
+
+    public function getListOfBrands($filters = array()) {
+        $array = array();
+
+        $where = $this->buildWhere($filters);
+
+        $sql = "SELECT
+        id_brand, 
+        COUNT(id_product) as c 
+        FROM tb_products 
+        WHERE ".implode(' AND ', $where)."
+        GROUP BY id_brand";
+        $sql = $this->db->prepare($sql);
+
+        $this->bindWhere($filters, $sql);
+
+        $sql->execute();
+
+        if($sql->rowCount() > 0){
+            $array = $sql->fetchAll();
+        }
+
+        return $array;
+    }  // Final de getListOfBrands
 
     public function getList($offset = 0, $limit = 3, $filters = array()) {  // $offset pnto de partida para paginação / $limit = 10 -> Quantidade de items que aparecerão na tela
         $array = array();
 
-        $where = array(
-            '1=1'
-        );
-
-        if(!empty($filters['category'])){  //criando o statement
-            $where[] = "id_category = :id_category";
-        }
+        $where = $this->buildWhere($filters);
 
         // A query abaixo faz consulta para buscar nome da marca e nome da categoria 
         $sql = "SELECT *,
@@ -36,12 +113,9 @@ class Products extends model {
         LIMIT $offset, $limit";
         $sql = $this->db->prepare($sql); 
 
-        if(!empty($filters['category'])){ // Preenchendo statement
-            $sql->bindValue(":id_category", $filters['category']);
-        }
+        $this->bindWhere($filters, $sql);
 
         $sql->execute();
-
         if ($sql->rowCount() > 0) {
 
             $array = $sql->fetchAll(); // Peguei todos os produtos da consulta e inseri no $array
@@ -60,13 +134,8 @@ class Products extends model {
 
 
     public function getToTal($filters = array()){  // Função para pegar o total de items usado em homeController.php
-        $where = array(
-            '1=1'
-        );
-
-        if(!empty($filters['category'])){  //criando o statement
-            $where[] = "id_category = :id_category";
-        }
+        
+        $where = $this->buildWhere($filters);
 
         $sql = "SELECT 
             COUNT(*) AS c 
@@ -74,9 +143,7 @@ class Products extends model {
             WHERE ".implode(' AND ', $where);
         $sql = $this->db->prepare($sql);
 
-        if(!empty($filters['category'])){ // Preenchendo statement
-            $sql->bindValue(":id_category", $filters['category']);
-        }
+        $this->bindWhere($filters, $sql);
 
         $sql->execute();
         $sql = $sql->fetch();
@@ -101,6 +168,25 @@ class Products extends model {
         return $array;
     } // Fim getImagesByProductId
 
+
+    private function buildWhere($filters) {
+
+        $where = array(
+            '1=1'
+        );
+
+        if(!empty($filters['category'])){  //criando o statement
+            $where[] = "id_category = :id_category";
+        }
+
+        return $where;
+    }
+
+    private function bindWhere($filters, &$sql) {
+        if(!empty($filters['category'])){ // Preenchendo statement
+            $sql->bindValue(":id_category", $filters['category']);
+        }
+    }
 
 } // Fim classe Products
 
