@@ -252,6 +252,25 @@ class Products extends model {
             $where[] = "id_category = :id_category";
         }
 
+        if(!empty($filters['brand'])){
+            $where[] = "id_brand IN ('".implode("','",$filters['brand'])."')";
+        }
+
+        if(!empty($filters['star'])){
+            $where[] = "qt_rating IN ('".implode("','",$filters['star'])."')";
+        }
+
+        if(!empty($filters['sale'])){
+            $where[] = "ic_sale  = '1' ";
+        }
+
+        if(!empty($filters['options'])){
+            $where[] = "id_product IN 
+            (select id_product from tb_products_options 
+            where tb_products_options.ds_value IN 
+            ('".implode("','",$filters['options'])."') )";
+        }
+
         return $where;
     }
 

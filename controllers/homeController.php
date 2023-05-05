@@ -29,8 +29,8 @@ class homeController extends controller {
 
         $offset = ($currentPage * $limit) - $limit;
 
-        $dados['list'] = $products->getList($offset, $limit); //Acionei o método geList da classe para retornar a consulta do banco de dados
-        $dados['totalItems'] = $products->getTotal();
+        $dados['list'] = $products->getList($offset, $limit, $filters); //Acionei o método geList da classe para retornar a consulta do banco de dados
+        $dados['totalItems'] = $products->getTotal($filters);
         $dados['numberOfPages'] = ceil($dados['totalItems'] / $limit); // Divido a quantidade de produtos retornados pelo limite de produtos por página
         $dados['currentPage'] = $currentPage;
 
