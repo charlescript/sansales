@@ -128,7 +128,9 @@
 
 								<div class="filterbox">
 									<div class="filtertitle"><?php $this->lang->get('PRICE'); ?></div>
-									<div class="filtercontent">
+									<div class="filtercontent"> 
+										<input type="hidden" id="slider0" name="filter[slider0]" value=" <?php echo $viewData['filters']['slider0'];?> " />
+										<input type="hidden" id="slider1" name="filter[slider1]" value=" <?php echo $viewData['filters']['slider1'];?> "/>
 										<input type="text" id="amount" readonly style="border:0; color:#59b210; font-weight:bold;">
 										<div id="slider-range"></div>
 									</div>
@@ -143,7 +145,7 @@
 											<label for="filter_star0">
 												(<?php $this->lang->get('NO_STAR'); ?>)
 											</label>
-											<span style="float:right">(<?php echo $viewData['filters']['stars']['0']; ?> items)</span>
+											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['0']; ?> items)</span>
 										</div>
 
 										<div class="filteritem">
@@ -151,7 +153,7 @@
 											<label for="filter_star1">
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 											</label>
-											<span style="float:right">(<?php echo $viewData['filters']['stars']['1']; ?> items)</span>
+											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['1']; ?> items)</span>
 										</div>
 
 										<div class="filteritem">
@@ -160,7 +162,7 @@
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 											</label>
-											<span style="float:right">(<?php echo $viewData['filters']['stars']['2']; ?> items)</span>
+											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['2']; ?> items)</span>
 										</div>
 
 										<div class="filteritem">
@@ -170,7 +172,7 @@
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 											</label>
-											<span style="float:right">(<?php echo $viewData['filters']['stars']['3']; ?> items)</span>
+											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['3']; ?> items)</span>
 										</div>
 
 										<div class="filteritem">
@@ -181,7 +183,7 @@
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 											</label>
-											<span style="float:right">(<?php echo $viewData['filters']['stars']['4']; ?> items)</span>
+											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['4']; ?> items)</span>
 										</div>
 
 										<div class="filteritem">
@@ -193,7 +195,7 @@
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 											</label>
-											<span style="float:right">(<?php echo $viewData['filters']['stars']['5']; ?> items)</span>
+											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['5']; ?> items)</span>
 										</div>
 									</div>
 								</div>
@@ -351,7 +353,7 @@
 	<script type="text/javascript">
 		var BASE_URL = '<?php echo BASE_URL; ?>';
 		var maxslider = <?php echo $viewData['filters']['maxslider']; ?>;
-		var slidervalues = [100, maxslider];
+		// var slidervalues = [100, maxslider];
 	</script>
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/jquery.min.js"></script>
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/jquery-ui.min.js"></script>

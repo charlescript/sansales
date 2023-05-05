@@ -99,17 +99,13 @@ class Products extends model {
     }
 
     public function getMaxPrice($filters = array()) {
-        $where = $this->buildWhere($filters);
-
+        
         $sql = "SELECT
         vl_price
         FROM tb_products 
-        WHERE ".implode(' AND ', $where)."
         ORDER BY vl_price DESC
         LIMIT 1";
         $sql = $this->db->prepare($sql);
-
-        $this->bindWhere($filters, $sql);
 
         $sql->execute();
 
@@ -271,6 +267,14 @@ class Products extends model {
             ('".implode("','",$filters['options'])."') )";
         }
 
+        if(!empty($filters['slider0'])){
+            $where[] = "vl_price >= :slider0" ;
+        }
+
+        if(!empty($filters['slider1'])){
+            $where[] = "vl_price <= :slider1" ;
+        }
+
         return $where;
     }
 
@@ -278,6 +282,15 @@ class Products extends model {
         if(!empty($filters['category'])){ // Preenchendo statement
             $sql->bindValue(":id_category", $filters['category']);
         }
+
+        if(!empty($filters['slider0'])) {
+            $sql->bindValue(":slider0", $filters['slider0']);
+        }
+
+        if(!empty($filters['slider1'])) {
+            $sql->bindValue(":slider1", $filters['slider1']);
+        }
+
     }
 
 } // Fim classe Products

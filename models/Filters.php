@@ -7,6 +7,8 @@ class Filters extends model {
 
         $array = array(
             'brands' => array(),
+            'slider0' => 0,
+            'slider1' => 0,
             'maxslider' => 1000,
             'stars' => array(
                 '0' => 0,
@@ -40,7 +42,16 @@ class Filters extends model {
         }
 
         // Criando filtro de Preço, estabelecendo o preço máximo disponivel de produto
+        if(isset($filters['slider0'])){
+            $array['slider0'] = $filters['slider0'];
+        }
+        if(isset($filters['slider1'])){
+            $array['slider1'] = $filters['slider1'];
+        }
         $array['maxslider'] = $products->getMaxPrice($filters);
+        if($array['slider1'] == 0) {
+            $array['slider1'] = $array['maxslider'];
+        }
 
         // Criando filtro das estrelas
         $star_products = $products->getListOfStars($filters);
