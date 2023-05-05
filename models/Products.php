@@ -275,6 +275,10 @@ class Products extends model {
             $where[] = "vl_price <= :slider1" ;
         }
 
+        if(!empty($filters['searchTerm'])){
+            $where[] = "nm_product LIKE :searchTerm";
+        }
+
         return $where;
     }
 
@@ -289,6 +293,10 @@ class Products extends model {
 
         if(!empty($filters['slider1'])) {
             $sql->bindValue(":slider1", $filters['slider1']);
+        }
+
+        if(!empty($filters['searchTerm'])){
+            $sql->bindValue(":searchTerm", '%'.$filters['searchTerm'].'%');
         }
 
     }
