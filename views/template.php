@@ -46,26 +46,24 @@
 
 					<div class="search_area">
 						<form action="<?php echo BASE_URL; ?>busca" method="GET">
-							<input type="text" name="s" value="<?php echo (!empty($viewData['searchTerm']))?$viewData['searchTerm']:''; ?>" required placeholder="<?php $this->lang->get('SEARCHFORANITEM'); ?>" />
+							<input type="text" name="s" value="<?php echo (!empty($viewData['searchTerm'])) ? $viewData['searchTerm'] : ''; ?>" required placeholder="<?php $this->lang->get('SEARCHFORANITEM'); ?>" />
+							
 							<select name="category">
-
 								<option value=""><?php $this->lang->get('ALLCATEGORIES'); ?></option>
-
 								<?php foreach ($viewData['categories'] as $cat) : ?>
-									<option <?php echo ($viewData['category'] == $cat['id_categories'])? 'selected=selected': ''; ?> value=" <?php echo $cat['id_categories']; ?> "> <?php echo $cat['nm_categories']; ?> </option>
+									<option <?php echo (isset($viewData['category']) && $viewData['category'] == $cat['id_categories']) ? 'selected=selected' : ''; ?> value="<?php echo $cat['id_categories']; ?>"> <?php echo $cat['nm_categories']; ?> </option>
 									<?php
 									if (count($cat['subs']) > 0) {
 										$this->loadView('search_subcategory', array(
 											'subs' => $cat['subs'],
 											'level' => 1,
-											'category' => $viewData['category']
+											'category' => (isset($viewData['category']) ? $viewData['category'] : '')
 										));
 									}
 									?>
 								<?php endforeach; ?>
-
-								
 							</select>
+							
 							<input type="submit" value="" />
 						</form>
 					</div>
@@ -130,13 +128,16 @@
 
 							<form method="GET">
 
+								<input type="hidden" name="s" value="<?php echo isset($viewData['searchTerm']) ? $viewData['searchTerm'] : ''; ?>" />
+								<input type="hidden" name="category" value="<?php echo isset($viewData['category']) ? $viewData['category'] : ''; ?>" />
+
 								<div class="filterbox">
 									<div class="filtertitle"><?php $this->lang->get('BRANDS'); ?></div>
 									<div class="filtercontent">
 										<?php foreach ($viewData['filters']['brands'] as $bitem) : ?>
 											<div class="filteritem">
 												<input type="checkbox" <?php echo (isset($viewData['filters_selected']['brand']) && in_array($bitem['id_brand'], $viewData['filters_selected']['brand'])) ? 'checked="checked"' : ''; ?> name="filter[brand][]" value="<?php echo $bitem['id_brand']; ?>" id="filter_brand<?php echo $bitem['id_brand']; ?>" />
-												<label for="filter_brand<?php echo $bitem['id_brand']; ?>"> <?php echo $bitem['nm_brand']; ?> </label> <span id="qt_brand">(<?php echo $bitem['count']; ?> items)</span>
+												<label for="filter_brand<?php echo $bitem['id_brand']; ?>"> <?php echo $bitem['nm_brand']; ?> </label> <span id="qt_brand">(<?php echo $bitem['count']; ?>)</span>
 											</div>
 										<?php endforeach; ?>
 									</div>
@@ -161,7 +162,7 @@
 											<label for="filter_star0">
 												(<?php $this->lang->get('NO_STAR'); ?>)
 											</label>
-											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['0']; ?> items)</span>
+											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['0']; ?>)</span>
 										</div>
 
 										<div class="filteritem">
@@ -169,7 +170,7 @@
 											<label for="filter_star1">
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 											</label>
-											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['1']; ?> items)</span>
+											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['1']; ?>)</span>
 										</div>
 
 										<div class="filteritem">
@@ -178,7 +179,7 @@
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 											</label>
-											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['2']; ?> items)</span>
+											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['2']; ?>)</span>
 										</div>
 
 										<div class="filteritem">
@@ -188,7 +189,7 @@
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 											</label>
-											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['3']; ?> items)</span>
+											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['3']; ?>)</span>
 										</div>
 
 										<div class="filteritem">
@@ -199,7 +200,7 @@
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 											</label>
-											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['4']; ?> items)</span>
+											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['4']; ?>)</span>
 										</div>
 
 										<div class="filteritem">
@@ -211,7 +212,7 @@
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 												<img src="<?php echo BASE_URL; ?>assets/images/star.png" height="13" border="0" />
 											</label>
-											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['5']; ?> items)</span>
+											<span id="qt_itens_star" style="float:right">(<?php echo $viewData['filters']['stars']['5']; ?>)</span>
 										</div>
 									</div>
 								</div>
@@ -222,7 +223,7 @@
 										<div class="filteritem">
 											<input type="checkbox" name="filter[sale]" <?php echo (isset($viewData['filters_selected']['sale']) && $viewData['filters_selected']['sale'] == '1') ? 'checked="checked"' : ''; ?> value="1" id="filter_sale" />
 											<label for="filter_sale">Em promoção </label>
-											<span style="float:right; padding-top:7px;">(<?php echo $viewData['filters']['sale']; ?> items)</span>
+											<span style="float:right; padding-top:7px;">(<?php echo $viewData['filters']['sale']; ?>)</span>
 										</div>
 									</div>
 								</div>
@@ -235,7 +236,7 @@
 											<?php foreach ($option['options'] as $op) : ?>
 												<div class="filteritem">
 													<input type="checkbox" name="filter[options][]" <?php echo (isset($viewData['filters_selected']['options']) && in_array($op['value'], $viewData['filters_selected']['options'])) ? 'checked="checked"' : ''; ?> value="<?php echo $op['value']; ?>" id="filter_options<?php echo $op['id']; ?>" />
-													<label for="filter_options<?php echo $op['id']; ?>"> <?php echo $op['value']; ?> </label> <span style="float:right">(<?php echo $op['count']; ?> items)</span>
+													<label for="filter_options<?php echo $op['id']; ?>"> <?php echo $op['value']; ?> </label> <span style="float:right">(<?php echo $op['count']; ?>)</span>
 												</div>
 											<?php endforeach; ?>
 											<br />

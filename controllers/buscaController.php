@@ -16,7 +16,7 @@ class buscaController extends controller
 
         $products = new Products(); // Instânciei o objeto $products de models/products.php
         $categories = new Categories(); // Instância da classe Categories
-        $f = new Filters(); // Instanciando na variave f, a calsse Filters de models/Filters.php
+        $f = new Filters(); // Instanciando na variavel f, a calsse Filters de models/Filters.php
 
         if (!empty($_GET['s'])) {
             $searchTerm = $_GET['s'];
@@ -53,7 +53,7 @@ class buscaController extends controller
             $dados['searchTerm'] = $searchTerm;
             $dados['category'] = $category;
 
-            $this->loadTemplate('busca', $dados);
+            $this->loadTemplate('busca',$dados);
         } else {
             header("Location: ".BASE_URL);
         }

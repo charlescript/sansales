@@ -1,17 +1,16 @@
 <?php foreach ($subs as $sub) : ?>
-    <option <?php echo ($category == $sub['id_categories'])? 'selected=selected': ''; ?> value="<?php echo $sub['id_categories']; ?>"><?php
+    <option <?php echo ($category==$sub['id_categories'])?'selected=selected':''; ?> value="<?php echo $sub['id_categories']; ?>"><?php
         for ($q = 0; $q < $level; $q++) echo '-- ';
         echo $sub['nm_categories'];
     ?></option>
-  
     <?php
-    if (count($sub['subs']) > 0) {
-        $this->loadView('search_subcategory', array(
-            'subs' => $sub['subs'],
-            'level' => $level + 1,
-            'category' => $category
-        ));
-    }
+        if (count($sub['subs']) > 0) {
+            $this->loadView('search_subcategory', array(
+                'subs' => $sub['subs'],
+                'level' => $level + 1,
+                'category' => $category
+            ));
+        }
     ?>
 
 <?php endforeach; ?>
