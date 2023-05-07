@@ -190,6 +190,7 @@ class Products extends model {
         WHERE ".implode(' AND ', $where)."
         ".$orderBySQL."
         LIMIT $offset, $limit";
+        
         $sql = $this->db->prepare($sql); 
 
         $this->bindWhere($filters, $sql);
@@ -313,6 +314,35 @@ class Products extends model {
             $sql->bindValue(":searchTerm", '%'.$filters['searchTerm'].'%');
         }
 
+    }
+
+    public function getProductInfo($id){
+        $array = array();
+
+        if(!empty($id)){
+            
+            // $sql = "SELECT 
+            // * ,
+            // ( select tb_brands.nm_brand from tb_brands where tb_brands.id_brand = tb_products.id_brand ) as brand_name
+            // FROM tb_products WHERE id_product = :id";
+
+            $sql = "SELECT p.id_product, p.nm_product, p.ds_product, p.vl_price, p.qt_rating, b.nm_brand as brand_name
+            FROM tb_products p
+            JOIN tb_brands b ON p.id_brand = b.id_brand
+            WHERE p.id_product = :id";
+
+            $sql = $this->db->prepare($sql);
+            $sql->bindValue(":id", $id);
+            $sql->execute();
+
+            if($sql->rowCount() > 0){
+
+                $array = $sql->fetch();
+
+            }
+        }
+
+        return $array;
     }
 
 } // Fim classe Products

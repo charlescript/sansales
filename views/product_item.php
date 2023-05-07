@@ -1,7 +1,5 @@
-
-
 <div class="product_item">
-    <a href="">
+    <a href=" <?php echo BASE_URL;?>product/open/<?php echo $id_product;?> ">
         <div class="product_tags">
             <?php if($ic_sale == '1'): ?>
                 <div class="product_tag product_tag_red"><b><?php $this->lang->get('SALE');?></b></div>
