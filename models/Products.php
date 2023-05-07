@@ -167,8 +167,17 @@ class Products extends model {
         return $array;
     }  // Final de getListOfBrands
 
-    public function getList($offset = 0, $limit = 3, $filters = array()) {  // $offset pnto de partida para paginação / $limit = 10 -> Quantidade de items que aparecerão na tela
+    public function getList($offset = 0, $limit = 3, $filters = array(), $random = false) {  // $offset pnto de partida para paginação / $limit = 10 -> Quantidade de items que aparecerão na tela
         $array = array();
+
+        $orderBySQL = '';
+        if($random == true) {
+            $orderBySQL = "ORDER BY RAND()";
+        }
+
+        if(!empty($filters['toprated'])){
+            $orderBySQL = "ORDER BY qt_rating DESC";
+        }
 
         $where = $this->buildWhere($filters);
 
@@ -179,6 +188,7 @@ class Products extends model {
         FROM 
         tb_products 
         WHERE ".implode(' AND ', $where)."
+        ".$orderBySQL."
         LIMIT $offset, $limit";
         $sql = $this->db->prepare($sql); 
 
@@ -258,6 +268,10 @@ class Products extends model {
 
         if(!empty($filters['sale'])){
             $where[] = "ic_sale  = '1' ";
+        }
+
+        if(!empty($filters['featured'])){
+            $where[] = "ic_featured  = '1' ";
         }
 
         if(!empty($filters['options'])){
