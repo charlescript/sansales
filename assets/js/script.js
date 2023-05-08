@@ -43,4 +43,9 @@ $(function () {
     });
     
 
+    $('.photo_item').on('click', function() {  // Função para trocar a imagem pequena do produto e coloca-la como principal em view/product.php
+        var url = $(this).find('img').attr('src');
+        $('.mainphoto').find('img').attr('src', url);
+    });
+
 });

@@ -207,3 +207,9 @@ Com drivers de neodímio de 40mm, este headphone da Sony produz um som de alta q
 O headphone sem fio da Sony possui uma bateria de longa duração, permitindo que você ouça suas músicas favoritas por até 35 horas com uma única carga. Além disso, ele é dobrável e fácil de transportar, permitindo que você o leve para onde quiser.
 Em resumo, o headphone sem fio da Sony é uma ótima opção para quem busca um som de alta qualidade, liberdade de movimento e conforto. Com seu design elegante e recursos avançados, ele é ideal para uso em casa, no trabalho ou em movimento."
  WHERE id_product = 10;
+ 
+ 
+ insert into tb_products_images (id_image, id_product, ds_url) 
+values(13,5,"13.jpg"),
+	  (14,5,"14.jpg"),
+      (15,5,"15.jpg");

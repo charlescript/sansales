@@ -516,3 +516,35 @@ footer h3 {
 	padding-left: 20px;
 	padding-right: 20px;
 }
+
+.mainphoto img{
+	width: 100%;
+}
+
+.gallery {
+	margin-top: 15%;
+}
+
+.photo_item {
+	width: 25%;
+	float: left;
+	text-align: center;
+}
+
+.photo_item img {
+	width: 90%;
+	cursor: pointer;
+}
+
+.product-img {
+	transition: transform 0.7s ease-in-out;
+}
+  
+.product-img:hover {
+	transform: scale(2.5);
+}
+  
+  
+  
+  
+  

@@ -1,7 +1,17 @@
 <div class="row">
     <div class="col-sm-5">
-        Foto
+        <div class="mainphoto">
+            <img src="<?php  echo BASE_URL; ?>media/products/<?php echo $product_images[0]['ds_url']; ?>"/>
+        </div>
+        <div class="gallery">
+            <?php foreach($product_images as $img) :?>
+                <div class="photo_item product-img">
+                    <img src=" <?php echo BASE_URL; ?>media/products/<?php echo $img['ds_url']; ?>" />
+                </div>
+            <?php endforeach; ?>
+        </div>
     </div>
+
     <div class="col-sm-7">
         <h2> <?php echo $product_info['nm_product']; ?> </h2>
         Marca: &nbsp; <small> <?php echo $product_info['brand_name']; ?> </small>
