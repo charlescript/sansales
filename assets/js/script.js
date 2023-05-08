@@ -23,6 +23,24 @@ $(function () {
         $('.filterarea form').submit();
     });
 
+
+    $('.addtocartform button').on('click', function(e){   // Função para não atualizar a tela ao clicar no botão + / - do product.php
+        e.preventDefault();
+
+        var qt = parseInt($('.addtocart_qt').val());  // Captura o valor da quantidade no input text em product.php
+        var action = $(this).attr('data-action');
+
+        if(action == 'decrease'){
+            if((qt-1) >= 1){  // Verifica se a quantidade de produtos está negativa, para não deixar ficar menor que 1
+                qt = qt - 1;
+            }
+        }
+        else if(action == 'increase'){
+            qt += 1;  // Adiciona 1 na quantidade de produto no product.php
+        }
+
+        $('.addtocart_qt').val(qt);  // Atualiza a quantidade de produtos sem resetar na página product.php
+    });
     
 
 });

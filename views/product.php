@@ -17,5 +17,13 @@
             <b><?php echo $q; ?> estrelas </b> 
         <hr />
         <p> <?php echo $product_info['ds_product']; ?> </p>
+        <hr>
+            De: <span class="price_from">R$ <?php echo number_format($product_info['vl_price_from'], 2);?> </span> <br>
+            Por: <span class="original_price">R$ <?php echo number_format($product_info['vl_price'], 2);?> </span>
+
+            <form method="POST" class="addtocartform">
+                <button data-action="decrease">-</button><input type="text" name="qt" value="1" class="addtocart_qt" disabled/><button data-action="increase">+</button>
+                <input class="addtocart_submit" type="submit" value="<?php $this->lang->get('ADD_TO_CART'); ?>" />
+            </form>
     </div>
 </div>
