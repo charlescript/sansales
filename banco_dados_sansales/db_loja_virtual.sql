@@ -70,7 +70,8 @@ create table tb_options(
 create table tb_users(
 	id_user int(11) unsigned primary key auto_increment not null, 
     ds_email varchar(100) not null,
-    ds_password varchar(32) not null
+    ds_password varchar(32) not null,
+    nm_user varchar(50) not null
 );
 
 create table tb_pages(  /*Tabela PAGES onde será armazenado as páginas estáticas*/

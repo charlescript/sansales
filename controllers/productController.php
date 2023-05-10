@@ -32,6 +32,8 @@ class productController extends controller
 
             $dados['product_info'] = $info;
             $dados['product_images'] = $products->getImagesByProductId($id); // Puxa do models/Products.php a imagem do produto
+            $dados['product_options'] = $products->getOptionsByProductId($id);
+            $dados['product_rates'] = $products->getRates($id, 5);
 
             $dados['categories'] = $categories->getList();
 

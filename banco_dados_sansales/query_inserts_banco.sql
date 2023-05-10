@@ -113,12 +113,10 @@ insert into tb_products_options (id_product, id_option, ds_value) values (1, 2, 
 insert into tb_products_options (id_product, id_option, ds_value) values (1, 4, "17") ;
 insert into tb_products_options (id_product, id_option, ds_value) values (2, 1, "Preto");
 insert into tb_products_options (id_product, id_option, ds_value) values (2, 2, "19 cm");
+insert into tb_products_options (id_product, id_option, ds_value) values (5, 1, "Preto");
+INSERT INTO `db_loja_virtual`.`tb_products_options` (`id`, `id_product`, `id_option`, `ds_value`) VALUES ('9', '5', '2', '60cm');
 
-select * from tb_products;
-desc tb_products;
-show tables;
 
-select * from tb_products_options;
 
 update tb_products set qt_rating = 4 WHERE id_product = 1;
 update tb_products set qt_rating = 4 WHERE id_product = 2;
@@ -131,10 +129,23 @@ update tb_products set qt_rating = 4 WHERE id_product = 8;
 update tb_products set qt_rating = 4 WHERE id_product = 9;
 update tb_products set qt_rating = 5 WHERE id_product = 10;
 
+update tb_products set id_options = "1,2,4" where id_product = 5;
 
 update tb_products set ic_featured = 1 where id_product >=5;
 
 UPDATE `db_loja_virtual`.`tb_products` SET `ic_sale` = '1' WHERE (`id_product` = '3');
+UPDATE `db_loja_virtual`.`tb_products_options` SET `ds_value` = '29cm' WHERE (`id` = '2');
+INSERT INTO `db_loja_virtual`.`tb_rates` (`id_product`, `id_user`, `dt_rate`, `qt_point`, `ds_comment`) VALUES ('2', '1', '2023-01-01', '2', 'Produto maravilhoso!');
+INSERT INTO `db_loja_virtual`.`tb_rates` (`id_product`, `id_user`, `dt_rate`, `qt_point`, `ds_comment`) VALUES ('2', '2', '2023-01-12 15:22:33', '1', 'Não gostei do brilho da tela.');
+
+insert into tb_users (id_user, ds_email, nm_user) values (1,"admin@admin","Charles"),
+														 (2, "user@user","Teste");
+                                                         
+update tb_users set ds_password = "123" WHERE id_user = 1;
+update tb_users set ds_password = "123" WHERE id_user = 2;
+update tb_users set ds_password = "123" WHERE id_user = 2;
+ 
+
 
 update tb_products set ds_product = "O monitor AOC de 21 polegadas é uma excelente opção para quem procura uma experiência de visualização envolvente e imersiva. 
 Com sua tela Full HD, você pode desfrutar de imagens nítidas e detalhadas com cores vibrantes e precisas.
