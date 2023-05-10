@@ -1,6 +1,24 @@
 <?php
 class Products extends model {
 
+    public function getInfo($id){
+        $array = array();
+
+        $sql = "SELECT nm_product, vl_price FROM tb_products WHERE id_product = :id";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+
+        if($sql->rowCount() > 0) {
+
+            $array = $sql->fetch();
+            $images = current($this->getImagesByProductId($id)); // peguei a imagem do produto pelo ID o current é para pegar a primeira foto
+            $array['image'] = $images['ds_url']; // Pega a url da 1º imagem do produto pelo id
+        }
+
+        return $array;
+    }
+
     public function getAvailableOptions($filters = array()) {
         $groups = array();
         $ids = array();

@@ -10,11 +10,20 @@ class cartController extends controller {
     public function index() {
         $store = new Store();
         $products = new Products(); // Instânciei o objeto $products de models/products.php
-  
+        $cart = new Cart();
+        
+        // Abaixo caso não haja sessão ou produtos na sessão o carrinho redireciona para o index
+        if( !isset($_SESSION['cart']) || (isset($_SESSION['cart']) && count($_SESSION['cart']) == 0 )) {
+            header("Location: ".BASE_URL);
+            exit;
+        }
+
         $dados = $store->getTemplateData();
 
+        $dados['list'] = $cart->getList(); // Carrega o carrinho de compras
 
-        $this->loadTemplate('cart', $dados);
+
+        $this->loadTemplate('cart', $dados);  // Envia todos os dados para a view/cart.php
     }
 
     public function add() {
