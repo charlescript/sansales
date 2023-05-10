@@ -31,7 +31,9 @@
         De: <span class="price_from">R$ <?php echo number_format($product_info['vl_price_from'], 2); ?> </span> <br>
         Por: <span class="original_price">R$ <?php echo number_format($product_info['vl_price'], 2); ?> </span>
 
-        <form method="POST" class="addtocartform">
+        <form method="POST" class="addtocartform" action="<?php echo BASE_URL; ?>cart/add">
+            <input type="hidden" name="id_product" value="<?php echo $product_info['id_product'];?>" />
+            <input type="hidden" name="qt_product" value="1" />
             <button data-action="decrease">-</button><input type="text" name="qt" value="1" class="addtocart_qt" disabled /><button data-action="increase">+</button>
             <input class="addtocart_submit" type="submit" value="<?php $this->lang->get('ADD_TO_CART'); ?>" />
         </form>
