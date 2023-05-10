@@ -8,11 +8,12 @@ class homeController extends controller {
     }
 
     public function index() {
-        $dados = array();
-
+        $store = new Store();
         $products = new Products(); // Instânciei o objeto $products de models/products.php
         $categories = new Categories(); // Instância da classe Categories
         $f = new Filters(); // Instanciando na variave f, a calsse Filters de models/Filters.php
+
+        $dados = $store->getTemplateData();
 
         $filters = array();
         if(!empty($_GET['filter']) && is_array($_GET['filter'])) {
@@ -34,15 +35,13 @@ class homeController extends controller {
         $dados['numberOfPages'] = ceil($dados['totalItems'] / $limit); // Divido a quantidade de produtos retornados pelo limite de produtos por página
         $dados['currentPage'] = $currentPage;
 
-        $dados['categories'] = $categories->getList();
-
-        $dados['widget_featured1'] = $products->getList(0, 5, array('featured'=>'1'), true);
-        $dados['widget_featured2'] = $products->getList(0, 3, array('featured'=>'1'), true);
-        $dados['widget_sale'] = $products->getList(0, 3, array('sale'=>'1'), true);
-        $dados['widget_toprated'] = $products->getList(0, 3, array('toprated'=>'1'));
-
         $dados['filters'] = $f->getFilters($filters);
         $dados['filters_selected'] = $filters;
+
+        $dados['searchTerm'] = '';
+        $dados['category'] = '';
+
+        $dados['sidebar'] = true;
 
         $this->loadTemplate('home', $dados);
     }

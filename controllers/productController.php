@@ -15,16 +15,12 @@ class productController extends controller
     } // Fim métod index
 
 
-    public function open($id)
-    {
-
-        $dados = array();
-
+    public function open($id) {
+        $store = new Store();
         $products = new Products(); // Instânciei o objeto $products de models/products.php
         $categories = new Categories(); // Instância da classe Categories
-        $f = new Filters(); // Instanciando na variavel f, a calsse Filters de models/Filters.php
-
-        $filters = array();
+      
+        $dados = $store->getTemplateData();
 
         $info = $products->getProductInfo($id);
 
@@ -35,18 +31,7 @@ class productController extends controller
             $dados['product_options'] = $products->getOptionsByProductId($id);
             $dados['product_rates'] = $products->getRates($id, 5);
 
-            $dados['categories'] = $categories->getList();
-
-            $dados['filters'] = $f->getFilters($filters);
-            $dados['filters_selected'] = array();
-
-            $dados['widget_featured1'] = $products->getList(0, 5, array('featured' => '1'), true);
-            $dados['widget_featured2'] = $products->getList(0, 3, array('featured' => '1'), true);
-            $dados['widget_sale'] = $products->getList(0, 3, array('sale' => '1'), true);
-            $dados['widget_toprated'] = $products->getList(0, 3, array('toprated' => '1'));
-
             $this->loadTemplate('product', $dados);
-
         } else {
             header("Location: ".BASE_URL);
         }

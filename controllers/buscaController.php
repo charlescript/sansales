@@ -10,13 +10,13 @@ class buscaController extends controller
         parent::__construct();
     }
 
-    public function index()
-    {
-        $dados = array();
-
+    public function index() {
+        $store = new Store();
         $products = new Products(); // Instânciei o objeto $products de models/products.php
         $categories = new Categories(); // Instância da classe Categories
         $f = new Filters(); // Instanciando na variavel f, a calsse Filters de models/Filters.php
+
+        $dados = $store->getTemplateData();
 
         if (!empty($_GET['s'])) {
             $searchTerm = $_GET['s'];
@@ -45,13 +45,13 @@ class buscaController extends controller
             $dados['numberOfPages'] = ceil($dados['totalItems'] / $limit); // Divido a quantidade de produtos retornados pelo limite de produtos por página
             $dados['currentPage'] = $currentPage;
 
-            $dados['categories'] = $categories->getList();
-
             $dados['filters'] = $f->getFilters($filters);
             $dados['filters_selected'] = $filters;
 
             $dados['searchTerm'] = $searchTerm;
             $dados['category'] = $category;
+
+            $dados['sidebar'] = true;
 
             $this->loadTemplate('busca',$dados);
         } else {
