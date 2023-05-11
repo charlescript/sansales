@@ -543,8 +543,25 @@ footer h3 {
 .product-img:hover {
 	transform: scale(2.5);
 }
-  
-  
-  
-  
-  
+
+.itens_cart th {
+	text-align: center;
+}
+
+.itens_cart td {
+	padding-top: 20px;
+    text-align: center;
+}
+
+.itens_cart img {
+	border-radius: 7px;
+}
+
+.itens_cart .subtotal{
+	text-align:right;
+	font-weight: bold;
+}
+
+.itens_cart .vl_subtotal{
+	color: #59b210;
+}

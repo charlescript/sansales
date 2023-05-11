@@ -26,6 +26,31 @@ class cartController extends controller {
         $this->loadTemplate('cart', $dados);  // Envia todos os dados para a view/cart.php
     }
 
+    public function del($id,$qt){  // Função para retirar produto do carrinho deletando-o da sessão
+        if(!empty($id)){
+            // unset($_SESSION['cart'][$id]);
+            if($qt == 0 || $qt == 1){
+                unset($_SESSION['cart'][$id]);
+            }
+
+            if($qt > 1){
+                $_SESSION['cart'][$id] = $qt-1;
+            } 
+        }
+        header("Location: ".BASE_URL."cart"); // Retorna para a view/cart ancorado no id items
+        exit;
+    }
+
+    public function addProductCart($id,$qt){
+
+        if(!empty($id)){
+            $_SESSION['cart'][$id] = $qt + 1;
+        }
+
+        header("Location: ".BASE_URL."cart");  // Retorna para a view/cart ancorado no id items
+        exit;
+    }
+
     public function add() {
         
         if(!empty($_POST['id_product'])){

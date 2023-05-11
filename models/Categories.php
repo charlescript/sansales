@@ -15,6 +15,8 @@ class Categories extends model {
                 $array[$item['id_categories']] = $item;
             }
 
+            // A condição de parada do loop é a chamada do método stillNeed passando o array $array como argumento:
+            // O método stillNeed verifica se pelo menos um item do array ainda tem subcategorias a serem adicionadas. Ele percorre cada item do array e verifica se o número de subcategorias do item é maior do que zero:
             while($this->stillNeed($array)) {
                 $this->organizeCategory($array);
             }
