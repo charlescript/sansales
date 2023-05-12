@@ -4,7 +4,7 @@ class Products extends model {
     public function getInfo($id){
         $array = array();
 
-        $sql = "SELECT nm_product, vl_price FROM tb_products WHERE id_product = :id";
+        $sql = "SELECT * FROM tb_products WHERE id_product = :id";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(":id", $id);
         $sql->execute();

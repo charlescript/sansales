@@ -11,6 +11,19 @@ class cartController extends controller {
         $store = new Store();
         $products = new Products(); // Instânciei o objeto $products de models/products.php
         $cart = new Cart();
+        $cep = '';
+        $shipping = array();
+
+        if(!empty($_POST['cep'])) {
+            $cep = intval($_POST['cep']);
+
+            $shipping = $cart->shippingCalculate($cep);
+            $_SESSION['shipping'] = $shipping;
+        }
+
+        if(!empty($_SESSION['shipping'])) {
+            $shipping = $_SESSION['shipping'];
+        }
         
         // Abaixo caso não haja sessão ou produtos na sessão o carrinho redireciona para o index
         if( !isset($_SESSION['cart']) || (isset($_SESSION['cart']) && count($_SESSION['cart']) == 0 )) {
@@ -20,6 +33,7 @@ class cartController extends controller {
 
         $dados = $store->getTemplateData();
 
+        $dados['shipping'] = $shipping;  // frete
         $dados['list'] = $cart->getList(); // Carrega o carrinho de compras
 
 
