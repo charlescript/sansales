@@ -1,7 +1,9 @@
 <?php
-class Cart extends model {
+class Cart extends model
+{
 
-    public function getList(){
+    public function getList()
+    {
         $products = new Products();
 
         $array = array();
@@ -14,7 +16,7 @@ class Cart extends model {
         foreach ($cart as $id => $qt) {
 
             $info = $products->getInfo($id);
-
+            
             $array[] = array(
                 'id' => $id,
                 'qt' => $qt,
@@ -25,7 +27,8 @@ class Cart extends model {
                 'width' => $info['vl_width'],
                 'height' => $info['vl_height'],
                 'length' => $info['vl_length'],
-                'diameter' => $info['vl_diameter']
+                'diameter' => $info['vl_diameter'],
+
             );
         }
 
@@ -45,8 +48,9 @@ class Cart extends model {
         return $subtotal;
     }
 
-    
-    public function shippingCalculate($cepDestination){   //Calcula frete
+
+    public function shippingCalculate($cepDestination)
+    {   //Calcula frete
 
         $array = array(
             'price' => 0,
@@ -64,7 +68,7 @@ class Cart extends model {
         $nVlDiametro = 0;
         $nVlValorDeclarado = 0;
 
-        foreach($list as $item){  // Populando as variaveis com os valores provindos do banco
+        foreach ($list as $item) {  // Populando as variaveis com os valores provindos do banco
             $nVlPeso += floatval($item['weight']);
             $nVlComprimento += floatval($item['length']);
             $nVlAltura += floatval($item['height']);
@@ -74,17 +78,17 @@ class Cart extends model {
         }
 
         $soma = $nVlComprimento + $nVlAltura + $nVlLargura;
-        if($soma > 200) {
+        if ($soma > 200) {
             $nVlComprimento = 66;
             $nVlAltura = 66;
             $nVlLargura = 66;
         }
 
-        if($nVlDiametro > 90) {
+        if ($nVlDiametro > 90) {
             $nVlDiametro = 90;
         }
 
-        if($nVlPeso > 40){
+        if ($nVlPeso > 40) {
             $nVlPeso = 40;
         }
 
@@ -104,11 +108,11 @@ class Cart extends model {
             'sCdAvisoRecebimento' => 'N',
             'StrRetorno' => 'xml'
         );
-
+        // API CalcPrecoprazo do CORREIOS
         $url = 'http://ws.correios.com.br/calculador/CalcPrecoprazo.aspx';
         $data = http_build_query($data);
 
-        $ch = curl_init($url.'?'.$data);
+        $ch = curl_init($url . '?' . $data);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $r = curl_exec($ch);
         $r = simplexml_load_string($r);
@@ -116,7 +120,10 @@ class Cart extends model {
         $array['price'] = current($r->cServico->Valor);
         $array['date'] = current($r->cServico->PrazoEntrega);
 
+        
+        
         return $array;
     }
+    
 
 } // Fim classe Cart

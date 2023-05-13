@@ -36,24 +36,23 @@
         <td class="subtotal" colspan="6" align="right">SubTotal carrinho: ( <?php echo $qtItens; ?> itens ): &nbsp; </td>
         <td class="vl_subtotal"> <strong> R$ <?php echo number_format($subtotal, 2, ',', '.'); ?> <strong> </td>
     </tr>
-
+    <hr>
     <tr>
-        <td class="subtotal" colspan="6" align="right">Frete: </td>
-        <td class="vl_subtotal">
+        <td class="frete" colspan="6" align="right">Frete: </td>
+        <td class="frete_itens">
             <?php if (isset($shipping['price'])) : ?>
                 <strong>R$ <?php echo $shipping['price']; ?></strong> (<?php echo $shipping['date']; ?> dia<?php echo ($shipping['date']==1)?'':'s'; ?>)
             <?php else : ?>
-                Qual seu CEP?<br />
-                <form method="POST"> <!-- Manda as informações de CEP para o controllers/cartController.php -->
-                    <input type="number" name="cep" />
+                <form class="input_cep" method="POST" > <!-- Manda as informações de CEP para o controllers/cartController.php -->
+                    <input type="number" name="cep"  placeholder="Qual seu CEP?" />
                     <input type="submit" value="Calcular" />
                 </form>
             <?php endif; ?>
         </td>
     </tr>
-
+    <hr>
     <tr>
-        <td class="subtotal" colspan="6" align="right">Total: </td>
+        <td class="subtotal" colspan="6" align="right">Total Compra: </td>
         <td class="vl_subtotal"> <strong> R$ <?php 
         $frete = 0;
         if(isset($shipping['price'])) { // Verifica se existe sessão iniciada com preço ( serve somente no primeiro acesso para evitar ausência desse vetor pelo fato de na 1º vez estar vazio)
@@ -66,3 +65,15 @@
 </table>
 
 <hr />
+
+<?php if($frete > 0) :?>
+
+<form method="POST" action="<?php echo BASE_URL; ?>cart/payment_redirect" style="float:right">
+    <select name="payment_type">
+        <option value="checkout_transparent">Pagseguro Checkout Transparente</option>
+    </select>
+
+    <input type="submit" value="Finalizar Compra" class="button" />
+</form>
+
+<?php endif; ?>

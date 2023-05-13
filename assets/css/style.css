@@ -565,3 +565,43 @@ footer h3 {
 .itens_cart .vl_subtotal{
 	color: #59b210;
 }
+
+.itens_cart .frete_itens {
+	text-align: center;
+}
+.itens_cart .frete{
+	text-align:right;
+	font-weight: bold;
+}
+
+.itens_cart .input_cep{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+  }
+
+.itens_cart .input_cep input[type="number"] {
+	padding: 10px;
+	font-size: 16px;
+	border: none;
+	border-radius: 5px 0px 0px 5px;
+	background-color: #f1f1f1;
+}
+
+.itens_cart .input_cep input[type="submit"] {
+	background-color: #4CAF50;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 0px 5px 5px 0px;
+	cursor: pointer;
+  }
+
+.button{
+	background-color: #59b210;
+	border-radius: 5px;
+	padding: 10px;
+	border: 0;
+	color: #fff;
+}
